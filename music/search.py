@@ -34,23 +34,11 @@ def index():
 @login_required
 def song():
     if request.method == 'POST':
+        
         title = request.form['title']
         artist = request.form['artist']
 
-        client_credentials_manager = SpotifyClientCredentials(client_id=Client_id, client_secret=Client_secret)
-        sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-        track_name = []
-        track_id = []
-        track_results = sp.search(q=f'track:{title} artist:{artist}', type='track', limit=50)
-        for t in track_results['tracks']['items']:
-            track_name.append(t['name'])
-            track_id.append(t['id'])
-        print(track_name)
-        print(track_id)
-
         error = None
-
         if not title:
             error = 'Title is required.'
         elif not artist:
@@ -58,6 +46,9 @@ def song():
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search.song'))
+            client_credentials_manager = SpotifyClientCredentials(client_id=Client_id, client_secret=Client_secret)
+            sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+            track_results = sp.search(q=f'track:{title} artist:{artist}', type='track', limit=50)['tracks']['items']
+            return render_template('search/song.html', songs=track_results)
 
-    return render_template('search/song.html')
+    return render_template('search/song.html', songs=[])
