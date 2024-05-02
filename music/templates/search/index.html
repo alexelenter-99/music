@@ -3,7 +3,7 @@
 {% block header %}
   <h1>{% block title %}Search{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('search.index') }}">New</a>
+    <a class="action" href="{{ url_for('search.song') }}">Search for songs</a>
   {% endif %}
 {% endblock %}
 
@@ -21,11 +21,4 @@
       <hr>
     {% endif %}
   {% endfor %}
-  <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="artist">Artist</label>
-    <textarea name="artist" id="artist">{{ request.form['artist'] }}</textarea>
-    <input type="submit" value="Search">
-  </form>
 {% endblock %}
