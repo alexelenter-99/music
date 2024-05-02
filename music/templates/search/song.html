@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+<a class="action" href="{{ url_for('search.search_playlists') }}">Search for playlists</a>
 <form method="post">
     <label for="title">Title</label>
     <input name="title" id="title" value="{{ request.form['title'] }}" required>
@@ -25,7 +26,7 @@
             <a class="action" href="{{ song['external_urls']['spotify'] }}"">Go to spotify</a>
             <form>
                 <input name="song_id" type="hidden" value=""
-                <a class="action" href="{{ url_fo }}"">Add to my songs</a>
+                <a class="action" href="{{ url_for('playlist.playlist') }}"">Add to my songs</a>
             </form>
         </div>
     </header>

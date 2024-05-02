@@ -59,7 +59,7 @@ def song():
 
 @bp.route('/search/playlist', methods=('GET', 'POST'))
 @login_required
-def playlist():
+def search_playlists():
     if request.method == 'POST':
 
         spotify_username = request.form['username']

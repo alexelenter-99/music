@@ -22,6 +22,7 @@
     <header>
         <div>
             <h1>{{ playlist['name'] }}</h1>
+            <a class="action" href="/playlist/{{ playlist['id'] }}"">See songs</a>
             <a class="action" href="{{ playlist['external_urls']['spotify'] }}"">Go to spotify</a>
         </div>
     </header>

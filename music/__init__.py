@@ -35,9 +35,13 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
 
+
     from . import search
     app.register_blueprint(search.bp)
     app.add_url_rule('/', endpoint='index')
+
+    from . import playlist
+    app.register_blueprint(playlist.bp)
 
     return app
 
