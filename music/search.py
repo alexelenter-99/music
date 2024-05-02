@@ -78,10 +78,10 @@ def playlist():
                 user = sp.user(spotify_username)
                 print(user)
                 playlists = sp.user_playlists(spotify_username)
-                for p in playlists['items']:
-                    print(p['name'], p['id'])
+                return render_template('search/playlist.html', playlists=playlists['items'], user=user)
             except Exception as ex:
                 print(ex)
-            return render_template('search/playlist.html', playlists=[])
+                error = 'Username not found'
+                flash(error)
 
-    return render_template('search/playlist.html', playlists=[])
+    return render_template('search/playlist.html', playlists=[], user=None)

@@ -13,8 +13,11 @@
     <input name="username" id="username" value="{{ request.form['username'] }}" required>
     <input type="submit" value="Search">
 </form>
+{% if user %}
+<a class="action" href="{{ user['external_urls']['spotify'] }}"">Go to spotify user</a>
+{% endif %}
 <div class="songs">
-{% for playlist in Playlits %}
+{% for playlist in playlists %}
 <article class="song">
     <header>
         <div>
