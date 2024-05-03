@@ -3,7 +3,7 @@
 {% block header %}
 <h1>{% block title %}Get Playlits{% endblock %}</h1>
 {% if g.user %}
-<a class="action" href="{{ url_for('search.index') }}">Go to profile</a>
+<a class="action" href="{{ url_for('home.index') }}">Go to profile</a>
 {% endif %}
 {% endblock %}
 
@@ -24,6 +24,7 @@
             <h1>{{ playlist['name'] }}</h1>
             <a class="action" href="/playlist/{{ playlist['id'] }}"">See songs</a>
             <a class="action" href="{{ playlist['external_urls']['spotify'] }}"">Go to spotify</a>
+            <a class="action" href="/playlist/track?username={{ g.user['username'] }}&playlist_id={{ playlist['id'] }}&spotify_url={{ playlist['external_urls']['spotify'] }}">Track playlist</a>
         </div>
     </header>
 </article>

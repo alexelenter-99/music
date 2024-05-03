@@ -14,22 +14,6 @@ Client_id = '02557908cc4a4a4db760d2506b87f315'
 Client_secret = 'd1d2043cfb0c4876b8162845c4441362'
 
 
-@bp.route('/')
-def index():
-    user_id = session.get('user_id')
-    songs = []
-    if user_id != None:
-        db = get_db()
-        songs = db.execute(
-            """SELECT s.name, a.name
-            FROM users u JOIN users_songs us ON u.id = us.user_id
-                         JOIN songs s ON us.song_id=s.id
-                         JOIN artists a ON s.artist_id = a.id"""
-        ).fetchall()
-        print(songs)
-    return render_template('search/index.html', songs=songs)
-
-
 @bp.route('/search', methods=('GET', 'POST'))
 @login_required
 def song():
