@@ -50,10 +50,23 @@ def add_playlist():
             """INSERT INTO playlists (id, name, user_id, spotify_url) VALUES (?,?,?,?)""",(playlist_id, playlist['name'], user_id, spotify_url,)
         )
         db.commit()
-        # add songs to playlists table
-    db.execute(
-        """INSERT INTO users_playlists (user_id, playlist_id) VALUES (?,?)""",(user_id,playlist_id,)
-    )
-    print(f"inserted with {playlist_id} {user_id}")
-    db.commit()
-    return redirect(url_for('home.index'))
+        songs = sp.playlist_items(playlist_id)['items']
+        for song in songs:
+            # print(song)
+            db.execute(
+                """INSERT INTO playlists_songs (playlist_id, song_id, added_at) VALUES (?,?,?)""",(playlist_id,song['track']['id'],song['added_at'])
+            )
+    exists = db.execute(
+                """SELECT * FROM users_playlists where playlist_id = ? and user_id = ?""",(playlist_id, user_id,)
+            ).fetchall()
+    print(exists)
+    if len(exists) > 0:
+        error = "Playlist already tracked " 
+        flash(error)
+        return redirect(url_for('search.search_playlists'))
+    else:
+        db.execute(
+            """INSERT INTO users_playlists (user_id, playlist_id) VALUES (?,?)""",(user_id,playlist_id,)
+        )
+        db.commit()
+        return redirect(url_for('home.index'))

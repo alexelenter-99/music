@@ -44,8 +44,11 @@ CREATE TABLE users_playlists (
 
 CREATE TABLE playlists_songs (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  playlists_id INTEGER NOT NULL,
+  playlist_id INTEGER NOT NULL,
   song_id INTEGER NOT NULL,
-  FOREIGN KEY (playlists_id) REFERENCES playlists (id),
+  added_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (playlist_id) REFERENCES playlists (id),
   FOREIGN KEY (song_id) REFERENCES songs (id)
 );
+
+CREATE UNIQUE INDEX users_playlists_unique ON users_playlists (user_id,playlist_id)
