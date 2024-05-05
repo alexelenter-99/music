@@ -1,21 +1,37 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Search{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('search.song') }}">Search for songs</a>
-  {% endif %}
+<h1>{% block title %}Search{% endblock %}</h1>
+{% if g.user %}
+<a class="action" href="{{ url_for('search.song') }}">Search for songs</a>
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="songs">
+  <h3>Songs in playlist</h3>
   {% for song in songs %}
   <article class="song">
-      <header>
-          <div>
+    <header>
+      <div>
+        <h1>{{ song['name'] }}</h1>
+        <div class="about">by {{ song['artist_name'] }}</div>
+        <a class="action" href="{{ song['spotify_url'] }}"">Go to spotify</a>
+          </div>
+      </header>
+  </article>
+  {% if not loop.last %}
+  <hr>
+  {% endif %}
+  {% endfor %}
+  <h3>Songs that can be recovered</h3>
+  {% for song in songs_to_recover %}
+  <article class=" song">
+          <header>
+            <div>
               <h1>{{ song['name'] }}</h1>
-              <div class="about">by {{ song['artists'][0]['name'] }}</div>
-              <a class="action" href="{{ song['external_urls']['spotify'] }}"">Go to spotify</a>
+              <div class="about">by {{ song['artist_name'] }}</div>
+              <a class="action" href="{{ song['spotify_url'] }}"">Go to spotify</a>
           </div>
       </header>
   </article>

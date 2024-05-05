@@ -60,11 +60,9 @@ def search_playlists():
                 client_credentials_manager=client_credentials_manager)
             try:
                 user = sp.user(spotify_username)
-                print(user)
                 playlists = sp.user_playlists(spotify_username)
                 return render_template('search/playlist.html', playlists=playlists['items'], user=user)
             except Exception as ex:
-                print(ex)
                 error = 'Username not found'
                 flash(error)
 

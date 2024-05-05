@@ -18,7 +18,6 @@ def index():
     user_id = session.get('user_id')
     if user_id != None:
         db = get_db()
-        print(user_id)
         playlists = db.execute(
             f"""SELECT p.name, p.id 
                 FROM
@@ -27,6 +26,5 @@ def index():
                 users_playlists up ON p.id=up.playlist_id 
                 WHERE up.user_id = {user_id}"""
         ).fetchall()
-        print(playlists)
         return render_template('home/index.html', playlists=playlists) 
     return redirect(url_for('auth.login'))

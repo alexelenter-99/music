@@ -14,7 +14,7 @@
         <div>
             <h1>{{ playlist['name'] }}</h1>
             <a class="action" href="/playlist/{{ playlist['id'] }}"">See songs</a>
-            
+            <a class="action" href="{{ url_for('playlist.check_playlist') }}?playlist_id={{ playlist['id'] }}">Check playlist</a>
         </div>
     </header>
 </article>
